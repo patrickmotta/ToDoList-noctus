@@ -1,8 +1,10 @@
 import React from 'react';
+import TextField from '@mui/material/TextField';
 
 
 
-export default function InputComponent({ onChange, type, value }) {
+
+export default function InputComponent({ onChange, type, label, id }) {
 
 
    function handleChange(event) {
@@ -10,7 +12,16 @@ export default function InputComponent({ onChange, type, value }) {
       onChange(text);
    }
    return (
-      <input type={type} value={value} onChange={handleChange} />
+      <TextField
+         autoFocus
+         margin="dense"
+         id={id}
+         label={label}
+         type={type}
+         fullWidth
+         variant="standard"
+         onChange={handleChange}
+      />
    );
 }
 

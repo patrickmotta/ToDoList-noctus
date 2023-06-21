@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import {colors} from '../../colors'
 
 export default function ToggleBttGroupComponent({ onChange, value, label }) {
 
@@ -13,15 +14,15 @@ export default function ToggleBttGroupComponent({ onChange, value, label }) {
       <div style={{marginTop: 20}}>
          <span style={{color: '#666666'}}>{label}<br/></span>
          <ToggleButtonGroup
-            color={value === 'not urgent' ? 'success' : value === 'little urgent' ? 'warning' : value === 'urgent' ? 'error' : 'secondary'}
+            color={value === 'Não urgente' ? colors.notUrgent : value === 'Pouco urgente' ? colors.littleUrgent : value === 'Urgente' ? colors.urgent : 'secondary'}
             value={value}
             exclusive
             onChange={handlePriority}
             aria-label="Platform"
          >
-            <ToggleButton value="not urgent">Não urgente</ToggleButton>
-            <ToggleButton value="little urgent">Pouco urgente</ToggleButton>
-            <ToggleButton value="urgent">Urgente</ToggleButton>
+            <ToggleButton value="Não urgente">Não urgente</ToggleButton>
+            <ToggleButton value="Pouco urgente">Pouco urgente</ToggleButton>
+            <ToggleButton value="Urgente">Urgente</ToggleButton>
          </ToggleButtonGroup>
       </div >
    );

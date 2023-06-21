@@ -16,7 +16,7 @@ export default function ModalCreateComponent({ open, onClose }) {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState("not urgent");
+  const [priority, setPriority] = useState("Não urgente");
 
   const [showAlert, setShowAlert] = useState(false);
 

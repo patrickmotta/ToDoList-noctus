@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -13,10 +13,15 @@ import Checkbox from '@mui/material/Checkbox';
 import { colors } from '../../colors';
 import db from '../../firebaseConfig';
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
-
+import ModalEdit from '../ModalEdit'
 
 export default function CardComponent({ item }) {
    const { id, title, description, priority, concluded } = item;
+   const [modalState, setModalState] = useState(false);
+
+   const handleModalOpen = () => setModalState(true);
+   const handleModalClose = () => setModalState(false);
+
 
    let deleteDocFirebase = async (docId) => {
       try {
@@ -66,11 +71,12 @@ export default function CardComponent({ item }) {
           <IconButton size='small' aria-label="delete" onClick={() => deleteDocFirebase(id)}>
             <DeleteIcon />
           </IconButton>
-          <IconButton size='small' aria-label="edit" onClick={((event) => { console.log(event.target.value) })}>
+          <IconButton size='small' aria-label="edit" onClick={(() => handleModalOpen())}>
             <EditIcon />
           </IconButton>
         </div>
       </Paper>
+            <ModalEdit open={modalState} onClose={handleModalClose}  id={id} title={title} description={description} priority={priority}/>
     </div>
   );
 }

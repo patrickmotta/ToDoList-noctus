@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 
 
 
-export default function InputComponent({ onChange, type, label, id, required, error }) {
+export default function InputComponent({ onChange, type, label, id, required, error, value }) {
 
 
    function handleChange(event) {
@@ -20,6 +20,7 @@ export default function InputComponent({ onChange, type, label, id, required, er
          id={id}
          label={label}
          type={type}
+         value={value}
          fullWidth
          variant="standard"
          onChange={handleChange}

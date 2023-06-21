@@ -7,6 +7,6 @@ Critérios de aceitação:
 ✅ - Como usuário, eu devo poder marcar uma tarefa como concluída.
 ❌ - Como usuário, eu devo poder editar o texto de uma tarefa existente.
 ✅ - Como usuário, eu devo poder excluir uma tarefa da minha lista.
-❌ - Como usuário, eu devo poder visualizar todas as tarefas pendentes em uma lista.
-❌ - Como usuário, eu devo poder visualizar todas as tarefas concluídas em uma lista separada.
+✅ - Como usuário, eu devo poder visualizar todas as tarefas pendentes em uma lista.
+✅ - Como usuário, eu devo poder visualizar todas as tarefas concluídas em uma lista separada.
 ❌ - Como usuário, eu devo poder organizar as tarefas por ordem de prioridade ou data de criação.

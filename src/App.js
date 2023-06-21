@@ -27,7 +27,8 @@ export default function App() {
       setData(newData);
     });
 
-    return () => unsubscribe(); // Remova o ouvinte quando o componente for desmontado
+    
+    return () => unsubscribe(); 
   }, []);
 
   return (

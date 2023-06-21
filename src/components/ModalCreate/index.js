@@ -4,6 +4,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import { v4 as uuidv4 } from 'uuid';
 import Input from '../Input'
 import ToggleButtons from '../ToggleButtons';
 import Alert from '../Alert'
@@ -21,13 +22,15 @@ export default function ModalCreateComponent({ open, onClose }) {
   const [showAlert, setShowAlert] = useState(false);
 
   const saveToFirebase = async () => {
+    let uuid = uuidv4();
     if(title !== ""){
-      await addDoc(collection(db, "todoList"), {
+      await setDoc(doc(db, "todoList",uuid), {
         title: title,
         description: description,
         priority: priority,
         pending: true,
-        dateTimeCreate: serverTimestamp()
+        dateTimeCreate: serverTimestamp(),
+        id:uuid
       })
       onClose();
       

@@ -7,7 +7,7 @@ export default function ListComponent({data}){
   
   return (
     <div>
-      {data.map((item, index) => (
+      {data.map((item) => (
         <Card item={item}/>
       ))}
     </div>

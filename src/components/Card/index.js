@@ -43,9 +43,8 @@ export default function CardComponent({ item }) {
          console.error("Erro ao editar documento:", error);
       }
    };
-
-   return (
-    <div style={{ maxWidth: 600, margin: '20px auto' }}>
+    return (
+    <div style={{ maxWidth: 600, margin: '20px' }}>
       <Paper style={{ display: "flex", flexDirection: "row", alignItems: "center", marginTop: 15 }}>
         <Checkbox defaultChecked={concluded} onChange={() => completeItemFirebase(id)} />
         <div style={{ flex: 1 }}>

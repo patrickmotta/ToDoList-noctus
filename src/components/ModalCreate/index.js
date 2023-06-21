@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { format } from 'date-fns';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -9,8 +10,9 @@ import Input from '../Input'
 import ToggleButtons from '../ToggleButtons';
 import Alert from '../Alert'
 
+
 import db from '../../firebaseConfig';
-import { collection, doc, setDoc, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 
 
 export default function ModalCreateComponent({ open, onClose }) {
@@ -20,6 +22,7 @@ export default function ModalCreateComponent({ open, onClose }) {
   const [priority, setPriority] = useState("Não urgente");
 
   const [showAlert, setShowAlert] = useState(false);
+  const currentDate = format(new Date(), 'dd/MM/yyyy');
 
   const saveToFirebase = async () => {
     let uuid = uuidv4();
@@ -29,7 +32,7 @@ export default function ModalCreateComponent({ open, onClose }) {
         description: description,
         priority: priority,
         concluded: false,
-        dateTimeCreate: serverTimestamp(),
+        creationDate: currentDate,
         id:uuid
       })
       onClose();
@@ -45,7 +48,12 @@ export default function ModalCreateComponent({ open, onClose }) {
       setShowAlert(false)
     }
   })
-
+  const buttons = [
+    { label: 'Não urgente', value: 'Não urgente' },
+    { label: 'Pouco urgente', value: 'Pouco urgente' },
+    { label: 'Urgente', value: 'Urgente' },
+  ];
+  
   return (
     <div>
       <Dialog open={open} onClose={onClose}>
@@ -54,7 +62,7 @@ export default function ModalCreateComponent({ open, onClose }) {
           <Input type='text' label="Titulo" id="title" onChange={setTitle} required={true} error={showAlert} />
           <Input type='text' label="Descrição" id="description" onChange={setDescription} />
           <div>
-            <ToggleButtons label="Prioridade:" value={priority} onChange={setPriority} />
+            <ToggleButtons buttons={buttons} label="Prioridade:" value={priority} onChange={setPriority} />
           </div>
           <Alert severity='error' show={showAlert} message="Adicione o titulo" />
         </DialogContent>

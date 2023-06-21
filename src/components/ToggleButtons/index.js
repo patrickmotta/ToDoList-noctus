@@ -4,7 +4,7 @@ import { colors } from '../../colors'
 
 export default function ToggleBttGroupComponent({ onChange, value, label, buttons }) {
 
-   const handlePriority = (event) => {
+   const handlerPriority = (event) => {
       const selected = event.target.value;
       onChange(selected)
    }
@@ -19,7 +19,7 @@ export default function ToggleBttGroupComponent({ onChange, value, label, button
             color={value === 'Não urgente' ? colors.notUrgent : value === 'Pouco urgente' ? colors.littleUrgent : value === 'Urgente' ? colors.urgent : 'secondary'}
             value={value}
             exclusive
-            onChange={handlePriority}
+            onChange={handlerPriority}
             aria-label="Platform"
          >
             {
@@ -27,9 +27,6 @@ export default function ToggleBttGroupComponent({ onChange, value, label, button
                   <ToggleButton value={button.value}>{button.label}</ToggleButton>
                ))
             }
-            {/* <ToggleButton value="Não urgente">Não urgente</ToggleButton>
-            <ToggleButton value="Pouco urgente">Pouco urgente</ToggleButton>
-            <ToggleButton value="Urgente">Urgente</ToggleButton> */}
          </ToggleButtonGroup>
       </div >
    );

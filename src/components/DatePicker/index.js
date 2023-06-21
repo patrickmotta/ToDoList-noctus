@@ -1,19 +1,14 @@
 import React from 'react';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import dayjs from 'dayjs';
-import 'dayjs/locale/pt-br';
-
 export default function DatePickerComponent({ value, onChange, message, show }) {
-   const handleChange = (dt) => {
-      const formattedDT = dayjs(dt).format('DD/MM/YYYY');
-      onChange(formattedDT);
+   const handleChange = (event) => {
+      const dt = event.target.value;
+      console.log(dt)
+      onChange(dt);
    }
 
    return (
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-         <DatePicker format='DD/MM/YYYY' onChange={handleChange} value={value} />
-      </LocalizationProvider>
+      <div>
+         <input onChange={handleChange} value={value} style={{width: '100%', height: '100%', borderColor: '#F1F1F1', borderStyle: 'solid'}} type="date" />
+      </div>
    );
 }

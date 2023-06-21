@@ -10,7 +10,7 @@ import { collection, getDocs, query, where, doc, setDoc, onSnapshot, serverTimes
 import './App.css';
 
 const buttons = [
-  { label: 'Todos', value: '' },
+  { label: 'Todos', value: 'Todos' },
   { label: 'Não urgente', value: 'Não urgente' },
   { label: 'Pouco urgente', value: 'Pouco urgente' },
   { label: 'Urgente', value: 'Urgente' },
@@ -19,29 +19,38 @@ const buttons = [
 export default function App() {
   const [modalState, setModalState] = useState(false);
   const [data, setData] = useState([]);
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState('Todos');
   const [datePicker, setDatePicker] = useState('');
   const [filteredData, setFilteredData] = useState([]);
 
 
   const handleModalOpen = () => setModalState(true);
   const handleModalClose = () => setModalState(false);
-
+  const handleFilterChange = (value) => {
+    setFilter(value);
+  };
+  const handleResetFilter = () => {
+    setFilter('Todos');
+    setDatePicker('');
+  };
+  
+  
   useEffect(() => {
     const fetchData = async () => {
       const collectionRef = collection(db, "todoList");
-
+  
       let filteredRef = collectionRef;
-
-      if (filter !== '') {
-        filteredRef = query(collectionRef, where('priority', '==', filter));
-      }
-      if (datePicker !== '') {
+  
+      if (filter !== 'Todos') {
+        if (datePicker !== '') {
+          filteredRef = query(collectionRef, where('priority', '==', filter), where('creationDate', '==', datePicker));
+        } else {
+          filteredRef = query(collectionRef, where('priority', '==', filter));
+        }
+      } else if (datePicker !== '') {
         filteredRef = query(collectionRef, where('creationDate', '==', datePicker));
-      }else{
-        setDatePicker('')
       }
-      
+  
       const unsubscribe = onSnapshot(filteredRef, (snapshot) => {
         const newData = [];
         snapshot.forEach((doc) => {
@@ -49,19 +58,16 @@ export default function App() {
         });
         setData(newData);
         setFilteredData(newData);
-        
       });
-
+  
       return () => unsubscribe();
     };
-
+  
     fetchData();
   }, [filter, datePicker]);
+  
 
-  const handleFilterChange = (value) => {
-    setFilter(value);
-  };
-
+  
   return (
     <div className="App">
       <div className='Container'>
@@ -74,13 +80,16 @@ export default function App() {
             <ModalCreate open={modalState} onClose={handleModalClose} />
           </div>
           <div className='FilterButtonsContainer'>
-            <div style={{ flex: 1 }}>
+            <div>
               <ToggleButtons buttons={buttons} label="Filtro:" value={filter} onChange={handleFilterChange} />
             </div>
             <div className="DatePickerContainer" style={{ flex: 1 }}>
               <DatePicker onChange={setDatePicker} value={datePicker} />
             </div>
           </div>
+            <div className="ResetFilterContainer">
+              <button onClick={handleResetFilter}>Limpar Filtro</button>
+            </div>
           <div className="ListContainer ScrollableContent">
             <List data={filteredData} concluded={false} />
           </div>

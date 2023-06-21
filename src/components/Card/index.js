@@ -74,8 +74,8 @@ export default function CardComponent({ item }) {
             <EditIcon />
           </IconButton>
         </div>
-      </Paper>
             <ModalEdit open={modalState} onClose={handleModalClose}  id={id} title={title} description={description} priority={priority}/>
+      </Paper>
     </div>
   );
 }

@@ -11,8 +11,13 @@ import Alert from '../Alert'
 import db from '../../firebaseConfig';
 import { collection, doc, updateDoc, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
 
+const buttons = [
+  { label: 'Não urgente', value: 'Não urgente' },
+  { label: 'Pouco urgente', value: 'Pouco urgente' },
+  { label: 'Urgente', value: 'Urgente' },
+];
 
-export default function ModalEditComponent({ open, onClose, id, title, description, priority }) {
+export default function ModalEditComponent({ open, onClose, id, title,description , priority }) {
 
   const [titleValue, setTitleValue] = useState(title);
   const [descriptionValue, setDescriptionValue] = useState(description);
@@ -35,12 +40,12 @@ export default function ModalEditComponent({ open, onClose, id, title, descripti
     }
   }
 
-//   useEffect(() => {
-//     if (!open) {
-//       // setTitle("")
-//       // setShowAlert(false)
-//     }
-//   })
+  useEffect(() => {
+    if (!open) {
+      // setTitle("")
+      // setShowAlert(false)
+    }
+  })
 
   return (
     <div>
@@ -50,7 +55,7 @@ export default function ModalEditComponent({ open, onClose, id, title, descripti
           <Input type='text' label="Titulo" id="title" onChange={setTitleValue} value={titleValue} required={true} error={showAlert} />
           <Input type='text' label="Descrição" id="description" onChange={setDescriptionValue} value={descriptionValue}/>
           <div>
-            <ToggleButtons label="Prioridade:" value={priorityValue} onChange={setPriorityValue} />
+            <ToggleButtons buttons={buttons} label="Prioridade:" value={priorityValue} onChange={setPriorityValue} />
           </div>
           <Alert severity='error' show={showAlert} message="Adicione o titulo" />
         </DialogContent>

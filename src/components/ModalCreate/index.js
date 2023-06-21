@@ -22,7 +22,7 @@ export default function ModalCreateComponent({ open, onClose }) {
   const [priority, setPriority] = useState("Não urgente");
 
   const [showAlert, setShowAlert] = useState(false);
-  const currentDate = format(new Date(), 'dd/MM/yyyy');
+  const currentDate = format(new Date(), 'yyyy-MM-dd');
 
   const saveToFirebase = async () => {
     let uuid = uuidv4();

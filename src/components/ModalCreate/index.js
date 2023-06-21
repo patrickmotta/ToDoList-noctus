@@ -28,7 +28,7 @@ export default function ModalCreateComponent({ open, onClose }) {
         title: title,
         description: description,
         priority: priority,
-        pending: true,
+        concluded: false,
         dateTimeCreate: serverTimestamp(),
         id:uuid
       })

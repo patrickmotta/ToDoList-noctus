@@ -43,12 +43,16 @@ export default function App() {
             <ModalCreate open={modalState} onClose={handleModalClose} />
             <span>Filtros</span>
           </div>
-          <div style={{ width: '80%' }}>
-            <List data={data} />
+          <div className="ListContainer">
+            <List data={data} concluded={false}/>
           </div>
         </div>
         <div className="CompletedContainer">
           <h3>Tarefas concluidas</h3>
+          <div className="ListContainer">
+            <List data={data} concluded={true}/>
+          </div>
+          
         </div>
       </div>
     </div>

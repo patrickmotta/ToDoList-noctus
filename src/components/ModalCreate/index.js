@@ -1,32 +1,65 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Input from '../Input'
+import ToggleButtons from '../ToggleButtons';
+import Alert from '../Alert'
 
-export default function ModalCreateComponent({open, onClose}) {
-  
-   const [title, setTitle] = useState();
-   const [description, setDescription] = useState();
-  
-   return (
+import db from '../../firebaseConfig';
+import { collection, doc, setDoc, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
+
+
+export default function ModalCreateComponent({ open, onClose }) {
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState("not urgent");
+
+  const [showAlert, setShowAlert] = useState(false);
+
+  const saveToFirebase = async () => {
+    if(title !== ""){
+      await addDoc(collection(db, "todoList"), {
+        title: title,
+        description: description,
+        priority: priority,
+        pending: true,
+        dateTimeCreate: serverTimestamp()
+      })
+      onClose();
+      
+    }else{
+      setShowAlert(true)
+    }
+  }
+
+  useEffect(() => {
+    if (!open) {
+      setTitle("")
+      setShowAlert(false)
+    }
+  })
+
+  return (
     <div>
       <Dialog open={open} onClose={onClose}>
         <DialogTitle>Adicionar Tarefa</DialogTitle>
         <DialogContent>
-            {/* <DialogContentText></DialogContentText> */}
-            <Input type='text' label="Titulo" id="title" onChange={setTitle}/>
-            <Input type='text' label="Descrição" id="description" onChange={setDescription}/>
-
+          <Input type='text' label="Titulo" id="title" onChange={setTitle} required={true} error={showAlert} />
+          <Input type='text' label="Descrição" id="description" onChange={setDescription} />
+          <div>
+            <ToggleButtons label="Prioridade:" value={priority} onChange={setPriority} />
+          </div>
+          <Alert severity='error' show={showAlert} message="Adicione o titulo" />
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Cancelar</Button>
-          <Button onClick={onClose}>Salvar</Button>
+          <Button onClick={saveToFirebase}>Salvar</Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </div >
   );
 }

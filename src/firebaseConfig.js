@@ -15,3 +15,4 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 export default db;
+// Caso suba para desenvolvimento esse arquivo vai virar variavel de ambiente ou .env

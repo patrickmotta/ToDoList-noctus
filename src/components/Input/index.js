@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 
 
 
-export default function InputComponent({ onChange, type, label, id }) {
+export default function InputComponent({ onChange, type, label, id, required, error }) {
 
 
    function handleChange(event) {
@@ -14,6 +14,8 @@ export default function InputComponent({ onChange, type, label, id }) {
    return (
       <TextField
          autoFocus
+         required={required}
+         error={error}
          margin="dense"
          id={id}
          label={label}

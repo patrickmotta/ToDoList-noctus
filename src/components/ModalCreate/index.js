@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { 
   Button, 
@@ -50,13 +50,25 @@ export default function ModalCreateComponent({ open, onClose }) {
       setShowAlert(true)
     }
   }
+
+  useEffect(()=>{
+    if(showAlert != ''){
+      setShowAlert(false)
+    }
+    return () => {
+      setTitle("")
+      // setDescription('')
+      setPriority('Não urgente')
+      // setShowAlert(false)
+    };
+  },[onClose, setShowAlert])
   
   return (
     <div>
       <Dialog open={open} onClose={onClose}>
         <DialogTitle>Adicionar Tarefa</DialogTitle>
         <DialogContent>
-          <Input type='text' label="Titulo" id="title" onChange={setTitle} required={true} error={showAlert} />
+          <Input type='text' label="Titulo" id="title" onChange={setTitle} required={true} error={showAlert} autoFocus={true} />
           <Input type='text' label="Descrição" id="description" onChange={setDescription} />
           <div>
             <ToggleButtons buttons={buttons} label="Prioridade:" value={priority} onChange={setPriority} />

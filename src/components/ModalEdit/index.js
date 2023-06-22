@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
+
+import { 
+  Button, 
+  Dialog, 
+  DialogActions, 
+  DialogContent, 
+  DialogTitle 
+} from '@mui/material';
+
 import Input from '../Input'
 import ToggleButtons from '../ToggleButtons';
 import Alert from '../Alert'
 
 import db from '../../firebaseConfig';
-import { collection, doc, updateDoc, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 
 const buttons = [
   { label: 'Não urgente', value: 'Não urgente' },
@@ -42,8 +46,6 @@ export default function ModalEditComponent({ open, onClose, id, title,descriptio
 
   useEffect(() => {
     if (!open) {
-      // setTitle("")
-      // setShowAlert(false)
     }
   })
 

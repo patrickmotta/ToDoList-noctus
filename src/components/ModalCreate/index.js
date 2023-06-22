@@ -1,27 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+
+import { 
+  Button, 
+  Dialog, 
+  DialogActions, 
+  DialogContent, 
+  DialogTitle 
+} from '@mui/material';
+
+
 import { format } from 'date-fns';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import { v4 as uuidv4 } from 'uuid';
 import Input from '../Input'
 import ToggleButtons from '../ToggleButtons';
 import Alert from '../Alert'
 
-
 import db from '../../firebaseConfig';
-import { collection, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 
+const buttons = [
+  { label: 'Não urgente', value: 'Não urgente' },
+  { label: 'Pouco urgente', value: 'Pouco urgente' },
+  { label: 'Urgente', value: 'Urgente' },
+];
 
 export default function ModalCreateComponent({ open, onClose }) {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("Não urgente");
-
   const [showAlert, setShowAlert] = useState(false);
+
   const currentDate = format(new Date(), 'yyyy-MM-dd');
 
   const saveToFirebase = async () => {
@@ -41,18 +50,6 @@ export default function ModalCreateComponent({ open, onClose }) {
       setShowAlert(true)
     }
   }
-
-  useEffect(() => {
-    if (!open) {
-      setTitle("")
-      setShowAlert(false)
-    }
-  })
-  const buttons = [
-    { label: 'Não urgente', value: 'Não urgente' },
-    { label: 'Pouco urgente', value: 'Pouco urgente' },
-    { label: 'Urgente', value: 'Urgente' },
-  ];
   
   return (
     <div>

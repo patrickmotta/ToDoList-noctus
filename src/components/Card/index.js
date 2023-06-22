@@ -1,19 +1,31 @@
 import React, {useState} from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Chip from '@mui/material/Chip';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import { colors } from '../../colors';
+
+import {
+  Accordion, 
+  AccordionSummary, 
+  AccordionDetails, 
+  Typography, 
+  Chip, 
+  IconButton,
+  Paper,
+  Checkbox
+} from '@mui/material'
+
+import { 
+  ExpandMore as ExpandMoreIcon, 
+  Delete as DeleteIcon, 
+  Edit as EditIcon
+} from '@mui/icons-material';
+
+import { 
+  doc, 
+  deleteDoc, 
+  updateDoc 
+} from "firebase/firestore";
+
 import db from '../../firebaseConfig';
-import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import ModalEdit from '../ModalEdit'
+import { colors } from '../../colors';
 
 export default function CardComponent({ item }) {
    const { id, title, description, priority, concluded } = item;

@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
-import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import React from 'react';
+
+import { 
+   ToggleButton, 
+   ToggleButtonGroup 
+} from '@mui/material';
+
 import { colors } from '../../colors'
 
 export default function ToggleBttGroupComponent({ onChange, value, label, buttons }) {
@@ -24,7 +29,7 @@ export default function ToggleBttGroupComponent({ onChange, value, label, button
          >
             {
                buttons.map((button) => (
-                  <ToggleButton value={button.value}>{button.label}</ToggleButton>
+                  <ToggleButton key={button.value} value={button.value}>{button.label}</ToggleButton>
                ))
             }
          </ToggleButtonGroup>

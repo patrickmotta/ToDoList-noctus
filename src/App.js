@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import AddButton from './components/AddButton';
-import List from './components/List';
-import ModalCreate from './components/ModalCreate';
-import ToggleButtons from './components/ToggleButtons';
-import db from './firebaseConfig';
-import DatePicker from './components/DatePicker';
-import { collection, getDocs, query, where, doc, setDoc, onSnapshot, serverTimestamp } from "firebase/firestore";
+
+import { 
+  collection, 
+  query, 
+  where, 
+  onSnapshot 
+} from "firebase/firestore";
 
 import './App.css';
+import db from './firebaseConfig';
+import List from './components/List';
+import AddButton from './components/AddButton';
+import DatePicker from './components/DatePicker';
+import ModalCreate from './components/ModalCreate';
+import ToggleButtons from './components/ToggleButtons';
+
 
 const buttons = [
   { label: 'Todos', value: 'Todos' },
@@ -33,14 +40,15 @@ export default function App() {
     setFilter('Todos');
     setDatePicker('');
   };
-  
-  
+
+
+
   useEffect(() => {
     const fetchData = async () => {
       const collectionRef = collection(db, "todoList");
-  
+
       let filteredRef = collectionRef;
-  
+
       if (filter !== 'Todos') {
         if (datePicker !== '') {
           filteredRef = query(collectionRef, where('priority', '==', filter), where('creationDate', '==', datePicker));
@@ -50,7 +58,7 @@ export default function App() {
       } else if (datePicker !== '') {
         filteredRef = query(collectionRef, where('creationDate', '==', datePicker));
       }
-  
+
       const unsubscribe = onSnapshot(filteredRef, (snapshot) => {
         const newData = [];
         snapshot.forEach((doc) => {
@@ -59,15 +67,15 @@ export default function App() {
         setData(newData);
         setFilteredData(newData);
       });
-  
+
       return () => unsubscribe();
     };
-  
-    fetchData();
-  }, [filter, datePicker]);
-  
 
-  
+    fetchData();
+  }, [filter, datePicker, modalState]);
+
+
+
   return (
     <div className="App">
       <div className='Container'>
@@ -87,9 +95,9 @@ export default function App() {
               <DatePicker onChange={setDatePicker} value={datePicker} />
             </div>
           </div>
-            <div className="ResetFilterContainer">
-              <button onClick={handleResetFilter}>Limpar Filtro</button>
-            </div>
+          <div className="ResetFilterContainer">
+            <button onClick={handleResetFilter}>Limpar Filtro</button>
+          </div>
           <div className="ListContainer ScrollableContent">
             <List data={filteredData} concluded={false} />
           </div>

@@ -1,21 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import db from '../../firebaseConfig';
-import { collection, doc, setDoc, getDocs, serverTimestamp } from "firebase/firestore";
-import Card from '../Card'
+import React from 'react';
+import Card from '../Card';
 
-export default function ListComponent({data, concluded}){
-  let dataFil = (item) =>{
-
-  }
+export default function ListComponent({ data, concluded }) {
   return (
     <div>
-      {data.map((item) => (
-        item.concluded === concluded ?
-
-        <Card item={item}/>
-        :<></>
-      ))}
+      {data
+        .filter((item) => item.concluded === concluded)
+        .map((item) => (
+          <Card key={item.id} item={item} />
+        ))}
     </div>
   );
 }
-

@@ -7,10 +7,12 @@ import {
   onSnapshot 
 } from "firebase/firestore";
 
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+
 import './App.css';
 import db from './firebaseConfig';
 import List from './components/List';
-import AddButton from './components/AddButton';
+import Button from './components/Button';
 import DatePicker from './components/DatePicker';
 import ModalCreate from './components/ModalCreate';
 import ToggleButtons from './components/ToggleButtons';
@@ -84,7 +86,7 @@ export default function App() {
             <h3>Tarefas pendentes</h3>
           </div>
           <div className="AddButtonContainer">
-            <AddButton onClick={handleModalOpen} />
+            <Button title='Adicionar' color='success' onClick={handleModalOpen} endIcon={<PlaylistAddIcon />}/>
             <ModalCreate open={modalState} onClose={handleModalClose} />
           </div>
           <div className='FilterButtonsContainer'>
